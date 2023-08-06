@@ -1,0 +1,40 @@
+extension:
+  namespace: cloudfabrix-ext
+  type: azure_power_off_instance
+  version: 23.7.13
+  description: Powers off an instance
+  default_name: azure_power_off_instance
+  publisher: Cloudfabrix, Inc
+  support_email: support@cloudfabrix.com
+  config_template:
+    azure_client_id:
+    azure_tenant_id:
+    azure_client_secret:
+    azure_subscription_id:
+    $secure: [ "azure_client_id", "azure_tenant_id", "azure_client_secret", "azure_subscription_id" ]
+    $mandatory: [ "azure_client_id", "azure_tenant_id", "azure_client_secret", "azure_subscription_id" ]
+  implementation:
+    code: azure_power_off_instance.AzurePowerOffInstanceBotPackage
+runtime:
+  type: python3.7
+  packages:
+    - pandas==1.3.5
+    - azure_identity==1.13.0
+    - azure_mgmt_compute==30.0.0
+    - azure_common==1.1.28
+    - azure_core==1.27.1
+bots:
+  - name: power-off-instance
+    description:
+      This bot uses Azure's ComputeManagementClient to power off a vm
+    bot_type: sink
+    model_type: api
+    model_parameters:
+      - name: resource_group_name
+        description: The name of the resource group.
+        type: text
+        mandatory: true
+      - name: vm_name
+        description: The name of vm.
+        type: text
+        mandatory: true
