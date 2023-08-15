@@ -1,0 +1,50 @@
+extension:
+  namespace: temp
+  type: awsstopinstance
+  version: 23.7.11
+  description: Managers AWS instances
+  default_name: aws_instance_manager
+  publisher: temp Inc
+  support_email: info@temp.com
+  config_template: 
+    instanceID: All
+    region: 
+    access_key:
+    secret_key:
+    $secure: ["instanceID", "access_key", "secret_key"]
+    $mandatory: ["instanceID", "region", "access_key", "secret_key"]
+    $labels:
+      instanceID: Instance ID
+      region: Instance Region
+      access_key: Access Key
+      secret_key: Secret Key
+  implementation:
+    code: myfile.AwsStopInstanceBot
+runtime:
+  type: python3.7
+  packages:
+    - pandas==1.3.5
+    - boto3
+
+bots:
+  - name: stop
+    description:
+      This bot stops the specified instance(s)
+    bot_type: source-any
+    model_type: api
+    model_parameters: null
+  - name: start
+    description:
+      This bot starts the specified instance(s)
+    bot_type: source-any
+    model_type: api
+    model_parameters: null
+  - name: terminate
+    description:
+      This bot terminates the specified instance(s)
+    bot_type: source-any
+    model_type: api
+    model_parameters: null
+
+
+  
